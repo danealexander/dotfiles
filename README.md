@@ -1,2 +1,2 @@
-# git-config
-Git Config
+# dotfiles
+Various configuration files and setup
