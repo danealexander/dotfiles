@@ -13,7 +13,7 @@ fi
 if [ -f ~/.git_prompt.sh ]; then
 	. ~/.git_prompt.sh
 	export GIT_PS1_SHOWDIRTYSTATE=1
-	export PS1='\u:\w$(__git_ps1 " [git:%s]") 🐻 > '
+	export PS1='\w$(__git_ps1 " [git:%s]") 🐻 > '
 fi
 
 
