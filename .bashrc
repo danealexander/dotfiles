@@ -1,3 +1,12 @@
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
+
+
 if [ -f ~/.bash_aliases ]; then
 	. ~/.bash_aliases
 fi
@@ -10,11 +19,11 @@ if [ -f ~/.git_completion ] && ! shopt -oq posix; then
 	. ~/.git_completion
 fi
 
-if [ -f ~/.git_prompt.sh ]; then
-	. ~/.git_prompt.sh
-	export GIT_PS1_SHOWDIRTYSTATE=1
-	export PS1='\w$(__git_ps1 " [git:%s]") 🐻 > '
-fi
+#if [ -f ~/.git_prompt.sh ]; then
+#	. ~/.git_prompt.sh
+#	export GIT_PS1_SHOWDIRTYSTATE=1
+#	export PS1='\w$(__git_ps1 " [git:%s]") 🐻 > '
+#fi
 
 
 export EDITOR="nano"
