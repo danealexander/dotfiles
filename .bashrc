@@ -10,10 +10,10 @@ if [ -f ~/.git_completion ] && ! shopt -oq posix; then
 	. ~/.git_completion
 fi
 
-if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
-	. ~/.git-prompt.sh
+if [ -f ~/.git_prompt.sh ]; then
+	. ~/.git_prompt.sh
 	export GIT_PS1_SHOWDIRTYSTATE=1
-	export PS1='\u:\w$(__git_ps1 " (%s)") $ '
+	export PS1='\u:\w$(__git_ps1 " (%s)") 🐻 '
 fi
 
 
