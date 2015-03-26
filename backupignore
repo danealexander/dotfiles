@@ -1,0 +1,32 @@
+.DS_Store
+.FBCLockFolder
+.Spotlight-*/
+.Trashes
+/afs/*
+/automount/*
+/cores/*
+/dev/*
+/Network/*
+/private/tmp/*
+/private/var/tmp/*
+/private/var/run/*
+/private/var/spool/postfix/*
+/private/var/vm/*
+/Previous Systems.localized
+/tmp/*
+/Volumes/*
+*/Caches/*
+*/.Trash
+
+# My files to exclude
+/Library/BESAgent
+/Library/Tegrity
+/Library/Application Support/BigFix
+/Library/Application Support/Kaspersky Lab
+/Library/Application Support/JAMF/Composer/Sources
+/System/DeferredInstall
+/Users/millera4
+/Users/sdadmin
+/Users/grovesd/Dropbox
+/Users/grovesd/Google Drive
+/Users/grovesd/Desktop/Exlude from TM
