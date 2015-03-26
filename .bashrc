@@ -11,6 +11,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 	. /etc/bash_completion
 fi
 
+source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
 # See .bash_prompt for update
 #if [ -f ~/.git_prompt.sh ]; then
 #	. ~/.git_prompt.sh
