@@ -32,6 +32,10 @@ alias lsp='ls -lA@e'
 # List only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
+# ejecting
+alias unmount="diskutil unmount"
+alias eject="diskutil eject"
+
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
