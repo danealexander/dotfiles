@@ -116,7 +116,7 @@ function codepoint() {
 
 # `m` with no arguments opens the current directory in TextMate, otherwise
 # opens the given location
-function a() {
+function m() {
 	if [ $# -eq 0 ]; then
 		mate .;
 	else
