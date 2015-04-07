@@ -41,6 +41,7 @@
 	
 	ci = commit
 	cm = commit -m
+	cam = commit -a -m
 	cma = commit -a -m
 	ca = commit --amend
 	amend = commit --amend
@@ -49,6 +50,7 @@
 	fl = log -u
 	
 	co = checkout
+	cob = checkout -b
 	br = branch 
 	
 	#list commands
