@@ -25,17 +25,20 @@ source `brew --repository`/Library/Contributions/brew_bash_completion.sh
 
 # rvm setup
 if [ -e $HOME/.rvm/scripts/rvm ]; then 
-  source $HOME/.rvm/scripts/rvm
-  PATH=$PATH:$HOME/.rvm/bin
+  source $HOME/.rvm/scripts/rvm;
+  PATH=$PATH:$HOME/.rvm/bin;
 fi
 
 # perlbrew setup
 if [ -f ~/perl5/perlbrew/etc/bashrc ]; then
-	. ~/perl5/perlbrew/etc/bashrc
+	source ~/perl5/perlbrew/etc/bashrc;
 fi
 if [ -e $HOME/perl5 ]; then
 	export PERL_MB_OPT="--install_base \"$HOME/perl5\"";
 	export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
 fi
 
-
+# munki setup
+if [ -e /usr/local/munki ]; then
+	PATH=$PATH:/usr/local/munki;
+fi
