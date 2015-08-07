@@ -86,3 +86,7 @@ alias noshowall='defaults write com.apple.finder AppleShowAllFiles -bool false &
 
 # Download web page
 alias wget-page='wget --recursive --no-clobber --page-requisites --html-extension --convert-links --no-parent --no-host-directories'
+
+# SSH alias
+alias zelda='ssh zelda'
+
