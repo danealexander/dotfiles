@@ -90,3 +90,6 @@ alias wget-page='wget --recursive --no-clobber --page-requisites --html-extensio
 # SSH alias
 alias zelda='ssh zelda'
 
+# AutoPKG alias
+alias ap='autopkg'
+
