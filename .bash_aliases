@@ -72,6 +72,9 @@ alias spoton="sudo mdutil -a -i on"
 # PlistBuddy alias, because sometimes `defaults` just doesn’t cut it
 alias plistbuddy="/usr/libexec/PlistBuddy"
 
+# Read binary plist in xml
+alias plist='plutil -convert xml1 -o /dev/stdout'
+
 # Lock the screen (when going AFK)
 alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 alias bye="afk"
