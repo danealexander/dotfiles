@@ -1,39 +1,50 @@
 [user]
 	name = Dane Groves
 	email = danealexander@users.noreply.github.com
-[push]
-	default = simple
+
+
 [credential]
 	helper = osxkeychain
 
-# color
+
+[push]
+	default = simple
+
+
+[core]
+	excludesfile = ~/.gitignore
+	editor = nano
+
+
 [color]
 	branch = auto
 	diff = auto
 	status = auto
-	
+
+
 [color "branch"]
 	current = red reverse
 	local = blue
 	remote = green
-	
+
+
 [color "diff"]
 	meta = yellow
 	frag = magenta
 	old = red bold
 	new = green
 	plain = white
-	
+
+
 [color "status"]
 	added = yellow
 	changed = green
 	untracked = cyan
-#
 
 
-# alias 
-	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
 [alias]
+	# http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+	
 	st = status -s
 	stl = status
 	
@@ -78,11 +89,13 @@
 	lasttag = describe --tags --abbrev=0
 	lt = describe --tags --abbrev=0
 
+
 [filter "media"]
 	clean = git media clean %f
 	smudge = git media smudge %f
 	required = true
-	
+
+
 [filter "hawser"]
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
