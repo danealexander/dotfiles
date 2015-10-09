@@ -137,10 +137,9 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
 
-# Install homebrew
+
+# Install dependencies
 info "installing dependencies"
 	if source bin/dot > /tmp/dotfiles-dot 2>&1
 	then
@@ -149,6 +148,14 @@ info "installing dependencies"
 		fail "error installing dependencies"
 	fi
 fi
+
+
+setup_gitconfig
+install_dotfiles
+
+
+
+
 
 echo ''
 echo '  All installed!'
