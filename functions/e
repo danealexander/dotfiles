@@ -1,0 +1,9 @@
+# `e` with no arguments opens the current directory in TextWrangler, otherwise
+# opens the given location
+function e() {
+	if [ $# -eq 0 ]; then
+		edit .;
+	else
+		edit "$@";
+	fi;
+}
