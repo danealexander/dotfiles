@@ -7,11 +7,12 @@ done;
 unset file;
 
 
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-	. /etc/bash_completion
+# Set up Bash completion
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
 fi
 
-source `brew --repository`/Library/Contributions/brew_bash_completion.sh
+
 
 # See .bash_prompt for update
 #if [ -f ~/.git_prompt.sh ]; then
