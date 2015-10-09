@@ -25,4 +25,3 @@ export GREP_OPTIONS='--color=auto';
 # Update path
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH";
 export MANPATH="/usr/local/share/man:$MANPATH";
-export JSTESTDRIVER_HOME=/usr/local/bin;
