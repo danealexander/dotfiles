@@ -17,6 +17,6 @@ else
 fi
 
 # Install homebrew packages
-brew install bash zsh rsync
+brew install bash zsh rsync git
 
 exit 0
