@@ -9,8 +9,5 @@ export DOTS=$HOME/.dotfiles
 # Set OS X defaults
 $DOTS/osx/set-defaults
 
-# Upgrade homebrew
-brew update
-
 # Install homebrew packages
 $DOTS/homebrew/install 2>&1
