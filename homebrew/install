@@ -1,0 +1,25 @@
+#!/bin/sh
+#
+# Homebrew
+#
+# This installs some of the common dependencies needed (or at least desired)
+# using Homebrew.
+
+# Check for Homebrew
+# Install or update
+if test $(which brew)
+then
+	echo "  Updating Homebrew for you."
+	brew update
+else
+	echo "  Installing Homebrew for you."
+	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	
+	# Tap dupes
+	brew tap homebrew/dupes
+	# Install homebrew packages
+	brew install bash bash-completion zsh git brew-casks rsync
+
+fi
+
+exit 0

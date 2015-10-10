@@ -20,12 +20,3 @@ export MANPAGER='less -X';
 
 # Always enable colored `grep` output.
 export GREP_OPTIONS='--color=auto';
-
-
-# Update path
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH";
-export MANPATH="/usr/local/share/man:$MANPATH";
-export JSTESTDRIVER_HOME=/usr/local/bin;
-
-# brew caskroom
-export  HOMEBREW_CASK_OPTS='--appdir=/Applications --caskroom=/usr/local/Caskroom --verbose';
