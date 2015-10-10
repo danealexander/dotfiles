@@ -37,7 +37,7 @@ done
 # load functions
 for func in $(ls $DOTS/functions/)
 do
-	source "DOTS/functions/$func"
+	source "$DOTS/functions/$func"
 done
 
 # load the completion files
