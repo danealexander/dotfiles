@@ -1,8 +1,5 @@
 # Modified from https://github.com/mathiasbynens/dotfiles/blob/master/.osx
 
-# Install the Solarized Dark theme for Terminal
-open "${dots}/osx/Solarized Dark ansi.terminal"
-
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
