@@ -10,8 +10,7 @@ then
 fi
 
 # get an array of all of our bash files
-config_files=($(find . -name '*.bash' -print))
-
+config_files=($(find $DOTS -name '*.bash' -print))
 
 path_file=path.bash
 completion_file=completion.bash
