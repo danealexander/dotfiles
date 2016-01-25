@@ -18,7 +18,7 @@ else
 	# Tap dupes
 	brew tap homebrew/dupes
 	# Install homebrew packages
-	brew install bash bash-completion zsh git casks rsync
+	brew install bash bash-completion zsh git casks rsync wget
 	
 	# Install caskroom
 	brew install casks
