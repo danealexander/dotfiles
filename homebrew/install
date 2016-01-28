@@ -24,6 +24,7 @@ else
 	brew install casks
 	brew cask install \
 		1password \
+		acorn \
 		atom \
 		brackets \
 		chrome-devtools
@@ -31,7 +32,9 @@ else
 		firefox 
 		google-chrome \
 		google-drive \
+		imageoptim \
 		quicksilver \
+		sketch \
 		textmate \
 		textwrangler \
 		transmit;
