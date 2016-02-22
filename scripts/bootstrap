@@ -151,6 +151,10 @@ else
 fi
 
 
+info "Setting OS X defaults"
+$DOTS/osx/set-defaults
+
+
 setup_gitconfig
 install_dotfiles
 
