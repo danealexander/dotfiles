@@ -18,7 +18,27 @@ else
 	# Tap dupes
 	brew tap homebrew/dupes
 	# Install homebrew packages
-	brew install bash bash-completion zsh git brew-casks rsync
+	brew install bash bash-completion zsh git casks rsync wget
+	
+	# Install caskroom
+	brew install casks
+	brew cask install \
+		1password \
+		acorn \
+		atom \
+		brackets \
+		chrome-devtools
+		dropbox	\
+		firefox 
+		google-chrome \
+		google-drive \
+		imageoptim \
+		quicksilver \
+		sequel-pro \
+		sketch \
+		textmate \
+		textwrangler \
+		transmit;
 
 fi
 

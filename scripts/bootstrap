@@ -2,6 +2,8 @@
 #
 # bootstrap installs things.
 
+# @todo: source the bash alias file
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
