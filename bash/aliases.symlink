@@ -18,6 +18,12 @@ alias drop="cd ~/Dropbox"
 alias d="cd ~/Dropbox"
 alias drive="cd ~/Google Drive"
 
+# shortcuts to local dev sites
+alias 244="cd ~/Sites/comm244.dev"
+alias 328="cd ~/Sites/comm328.dev"
+alias lwp="cd ~/Sites/lwp.dev"
+alias rt="cd ~/Sites/redtomatowp.dev"
+
 alias g="git"
 alias h="history"
 alias j="jobs"
