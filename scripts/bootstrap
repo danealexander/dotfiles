@@ -152,7 +152,13 @@ fi
 
 
 info "Setting OS X defaults"
-$DOTS/osx/set-defaults
+if source $DOTFILES_ROOT/osx/set-defaults
+then
+	success "OS X defaults set"
+else
+	fail "Error setting OS X defaults"
+fi
+
 
 
 setup_gitconfig
