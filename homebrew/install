@@ -18,7 +18,16 @@ else
 	# Tap dupes
 	brew tap homebrew/dupes
 	# Install homebrew packages
-	brew install bash bash-completion zsh git casks rsync wget
+	brew install \
+		bash \
+		bash-completion \
+		colordiff \
+		ffmpeg \
+		git \
+		mysql \
+		rsync \
+		wget \
+		zsh;
 	
 	# Install caskroom
 	brew install casks
@@ -29,16 +38,25 @@ else
 		brackets \
 		chrome-devtools
 		dropbox	\
-		firefox 
+		firefox \
 		google-chrome \
 		google-drive \
+		handbrake \
 		imageoptim \
 		quicksilver \
+		qlcolorcode \
+		quicklook-csv \
+		quicklook-json \
+		qlmarkdown \
 		sequel-pro \
 		sketch \
+		sqlitebrowser \
 		textmate \
 		textwrangler \
-		transmit;
+		transmit \
+		virtualbox \
+		virtualbox-extension-pack \
+		vagrant;
 
 fi
 
