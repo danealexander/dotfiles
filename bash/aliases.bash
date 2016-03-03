@@ -16,7 +16,7 @@ alias docs="cd ~/Documents"
 alias doc="cd ~/Documents"
 alias drop="cd ~/Dropbox"
 alias d="cd ~/Dropbox"
-alias drive="cd ~/Google Drive"
+alias drive="cd ~/Google\ Drive"
 
 # shortcuts to local dev sites
 alias 244="cd ~/Sites/comm244.dev"
