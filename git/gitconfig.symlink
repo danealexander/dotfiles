@@ -49,6 +49,8 @@
 	stl = status
 	
 	cl = clone
+	f = fetch --all
+	p = pull
 	
 	ci = commit
 	cm = commit -m
