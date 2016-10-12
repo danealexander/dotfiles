@@ -2,17 +2,83 @@
 #
 # Homebrew
 #
-# This installs some of the common dependencies needed (or at least desired)
+# This installs and updates some of the common dependencies needed (or at least desired)
 # using Homebrew and Caskroom
+
+# Default Homebrew packages to install
+# Add new ones here
+DEFAULT_PKGS=(			\
+	bash 					\
+	bash-completion	\
+	colordiff 			\
+	ffmpeg 				\
+	git 					\
+	mysql 				\
+	rsync 				\
+	wget 					\
+	zsh 
+)
+
+# Default Caskroom packages to install
+# Add new ones here
+DEFAULT_CASKS=(				
+	1password 					
+	acorn 						
+	atom 							
+	brackets 					
+	chrome-devtools			
+	dropbox	
+	firefox 
+	google-chrome 
+	google-drive 
+	handbrake 
+	imageoptim 
+	quicksilver 
+	qlcolorcode 
+	quicklook-csv 
+	quicklook-json 
+	qlmarkdown 
+	sequel-pro 
+	sketch 
+	sqlitebrowser 
+	textmate 
+	textwrangler 
+	transmit 
+	virtualbox 
+	virtualbox-extension-pack 
+	vagrant 
+)
+
+
+
+# Interaction functions
+info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
 
 # Check for Homebrew
 # Install or update
 if test $(which brew)
 then
-	echo "  Updating Homebrew for you."
+	info "Updating Homebrew for you..."
 	brew update
 else
-	echo "  Installing Homebrew for you."
+	info "Installing Homebrew for you..."
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -20,7 +86,7 @@ fi
 # Tap dupes
 if  ! $(brew tap | grep -lq "homebrew/dupes")
 then
-	echo "  Tapping homebrew/dupes"
+	info "Tapping homebrew/dupes"
 	brew tap homebrew/dupes
 fi
 
@@ -30,20 +96,9 @@ installed_pkgs=$(brew list)
 
 install_list=()
 
-default_pkgs=(\
-	bash \
-	bash-completion \
-	colordiff \
-	ffmpeg \
-	git \
-	mysql \
-	rsync \
-	wget \
-	zsh 
-)
 
 # build list of packages to install
-for i in "${default_pkgs[@]}"
+for i in "${DEFAULT_PKGS[@]}"
 do
 	if test $(echo "$installed_pkgs" | fgrep -lq "$i")	
 	then 
@@ -58,18 +113,17 @@ done
 # Install homebrew packages
 if [ ${#install_list[@]} -eq 0 ]
 then 
-	echo "  All default Homebrew packages already installed"
+	success "All default Homebrew packages already installed"
 else
-	echo "  Installing the following Homebrew packages for you: ${install_list[@]}"
+	info "Installing the following Homebrew packages for you: ${install_list[@]}"
 	brew install ${install_list[@]}
 fi
 	
 
-
 # Install caskroom
 if  ! $(brew tap | grep -lq "caskroom/cask")
 then
-	echo "  Tapping Caskroom"
+	info "Tapping Caskroom"
 	brew tap caskroom/cask
 fi
 
@@ -78,37 +132,9 @@ installed_casks=$(brew cask list)
 
 install_cask_list=()
 
-default_casks=(\
-	1password \
-	acorn \
-	atom \
-	brackets \
-	chrome-devtools
-	dropbox	\
-	firefox \
-	google-chrome \
-	google-drive \
-	handbrake \
-	imageoptim \
-	quicksilver \
-	qlcolorcode \
-	quicklook-csv \
-	quicklook-json \
-	qlmarkdown \
-	sequel-pro \
-	sketch \
-	sqlitebrowser \
-	textmate \
-	textwrangler \
-	transmit \
-	virtualbox \
-	virtualbox-extension-pack \
-	vagrant 
-)
-
 
 # build list of casks to install
-for i in "${default_casks[@]}"
+for i in "${DEFAULT_CASKS[@]}"
 do
 	if test $(echo "$installed_casks" | fgrep -lq "$i")	
 	then 
@@ -122,9 +148,9 @@ done
 # Install caskroom packages
 if [ ${#install_cask_list[@]} -eq 0 ]
 then 
-	echo "  All default Caskroom packages already installed"
+	success "All default Caskroom packages already installed"
 else
-	echo "  Installing the following Caskroom packages for you: ${install_cask_list[@]}"
+	info "Installing the following Caskroom packages for you: ${install_cask_list[@]}"
 	brew cask install ${install_cask_list[@]}
 fi
 

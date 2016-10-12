@@ -2,7 +2,6 @@
 #
 # bootstrap installs things.
 
-# @todo: source the bash alias file
 
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
@@ -182,21 +181,24 @@ install_osx_defaults() {
 }
 
 
-# Install dependencies
-info "installing dependencies"
-if source bin/dot #> /tmp/dotfiles-dot 2>&1
-then
-	success "dependencies installed"
-else
-	fail "error installing dependencies"
-fi
+# Install dependencies (Homebrew, etc.)
+install_dependencies() {
+	info "installing dependencies"
+	if source bin/dot #> /tmp/dotfiles-dot 2>&1
+	then
+		success "dependencies installed"
+	else
+		fail "error installing dependencies"
+	fi
+}
 
 
 
 setup_gitconfig
 install_dotfiles
 install_osx_defaults
+install_dependencies
 
 
 echo ''
-echo '  All installed!'
+echo '🦄  All installed!'
