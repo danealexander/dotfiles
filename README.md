@@ -51,9 +51,6 @@ There's a few special files in the hierarchy.
 * Add preferences for TextWrangler
 * Auto Install solarized
 * Create install script for each topic
-* Create better update script
-* Update bootstrap to install all new things
-* Create caskroom install script
 
 ## thanks
 
