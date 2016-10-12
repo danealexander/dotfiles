@@ -9,3 +9,7 @@ export DOTS=$HOME/dotfiles
 
 # Install homebrew packages
 $DOTS/homebrew/install 2>&1
+
+
+# PHP Composer ?
+$DOTS/php/install

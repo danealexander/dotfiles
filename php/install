@@ -1,0 +1,83 @@
+#!/bin/sh
+#
+# Composer
+#
+# This installs and updates some of the common dependencies needed for PHP
+
+# Default Composer packages to install (global only!)
+# Add new ones here
+DEFAULT_PKGS=(
+)
+
+
+# Interaction functions
+info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+
+# Check for Composer (global)
+# Install or update
+if test $(which composer)
+then
+	info "Updating Composer for you..."
+	composer self-update
+	composer global update
+else
+	info "Installing Composer for you..."
+
+	if source composer.install #> /tmp/dotfiles-dot 2>&1
+	then
+		success "Composer installed"
+	else
+		fail "error installing Composer"
+	fi
+	
+fi
+
+
+
+# Check to make sure we have all default packages
+installed_pkgs=$(composer global show)
+
+install_list=()
+
+
+# build list of packages to install
+for i in "${DEFAULT_PKGS[@]}"
+do
+	if test $(echo "$installed_pkgs" | fgrep -lq "$i")	
+	then 
+		echo $?
+		# echo "$i added to install list"
+		install_list+=("$i");
+		#else
+		# echo "$i already installed"
+	fi
+done
+
+# Install Composer packages
+if [ ${#install_list[@]} -eq 0 ]
+then 
+	success "All default global Composer packages already installed"
+else
+	info "Installing the following Composer packages for you: ${install_list[@]}"
+	brew install ${install_list[@]}
+fi
+
+
+exit 0
