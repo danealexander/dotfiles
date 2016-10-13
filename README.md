@@ -21,10 +21,9 @@ scripts/bootstrap
 This will symlink the appropriate files in `dotfiles` to your home directory.
 Everything is configured and tweaked within `~/dotfiles`.
 
-`dot` is a simple script that installs some dependencies, sets sane OS X
-defaults, and so on. Tweak this script, and occasionally run `dot` from
-time to time to keep your environment fresh and up-to-date. You can find
-this script in `bin/`.
+`dot` is a simple script that installs some dependencies. Tweak this script, 
+and occasionally run `dot` from time to time to keep your environment fresh and 
+up-to-date. You can find this script in `bin/`.
 
 
 ## components
@@ -43,6 +42,11 @@ There's a few special files in the hierarchy.
   your `$HOME`. This is so you can keep all of those versioned in your dotfiles
   but still keep those autoloaded files in your home directory. These get
   symlinked in when you run `script/bootstrap`.
+  
+## local
+
+Any files in the local folder will be sourced or symlinked by bootstrap, but will not 
+get added to the git repo. Great for private files or local configurations.
 
 ## todo
 
