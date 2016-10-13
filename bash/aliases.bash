@@ -17,6 +17,7 @@ alias doc="cd ~/Documents"
 alias drop="cd ~/Dropbox"
 alias d="cd ~/Dropbox"
 alias gd="cd ~/Google\ Drive"
+alias sites="cd ~/Sites"
 
 # shortcuts to local dev sites
 alias 244="cd ~/Sites/comm244.dev"
@@ -95,9 +96,6 @@ alias noshowall='defaults write com.apple.finder AppleShowAllFiles -bool false &
 
 # Download web page
 alias wget-page='wget --recursive --no-clobber --page-requisites --html-extension --convert-links --no-parent --no-host-directories'
-
-# SSH alias
-alias zelda='ssh zelda'
 
 # AutoPKG alias
 alias ap='autopkg'
