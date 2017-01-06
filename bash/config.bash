@@ -1,6 +1,6 @@
 # Make nano the default editor.
-export EDITOR="nano";
-export SVN_EDITOR="nano";
+export EDITOR="vim";
+export SVN_EDITOR="vim";
 
 # Increase Bash history size. Allow 32³ entries; the default is 500.
 export HISTSIZE='32768';

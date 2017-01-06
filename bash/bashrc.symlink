@@ -19,6 +19,7 @@ config_files=($(find $DOTS -name '*.bash' -print))
 path_file=path.bash
 completion_file=completion.bash
 
+
 # load the path files
 for file in "${config_files[@]}"
 do
@@ -27,6 +28,7 @@ do
 		source $file
 	fi
 done
+
 
 # load everything but the path files and completion files
 for file in ${config_files[@]}
@@ -37,16 +39,18 @@ do
 	fi
 done
 
+
 # load functions
 for func in $(ls $DOTS/functions/)
 do
 	source "$DOTS/functions/$func"
 done
 
+
 # load the completion files
 for file in "${config_files[@]}"
 do
-	if [ "${file/$path_file}" != "$file" ]
+	if [ "${file/$completion_file}" != "$file" ]
 	then
 		source $file
 	fi
