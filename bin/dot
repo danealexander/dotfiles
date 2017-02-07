@@ -10,6 +10,8 @@ export DOTS=$HOME/dotfiles
 # Install homebrew packages
 $DOTS/homebrew/install 2>&1
 
+# Install node.js ecosystem
+$DOTS/nodejs/install
 
-# PHP Composer ?
+# PHP Composer
 $DOTS/php/install
