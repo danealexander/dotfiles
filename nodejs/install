@@ -1,0 +1,85 @@
+#!/bin/sh
+#
+# Settings for Node.js and NPM
+#
+# Downloads and installs latest node and npm
+# configures new default directory
+
+
+# Capability to auto-install global modules here
+# not currently in use @see https://www.sitepoint.com/solve-global-npm-module-dependency-problem/
+# To finish configuration, mimic method used in homebrew/install
+
+# Default global modules to install
+# Add new ones here
+DEFAULT_MODULES=(		\
+	gulp 					\
+	gulp-util			\
+	grunt-init 			\
+	grun-cli 			\
+	bower 				
+)
+
+
+# Interaction functions
+info () {
+  printf "\r  [ \033[00;34m..\033[0m ] $1"
+}
+
+user () {
+  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+}
+
+success () {
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+}
+
+fail () {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+  echo ''
+  exit
+}
+
+
+# Get an install nvm
+info "Installing/Updating nvm for you..."
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+
+info "Exporting nvm config and loading"
+export NVM_DIR="/Users/grovesd/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+
+
+## Check for Node
+## Install or update
+#if test $(which node)
+#then
+#	# Update npm
+#	info "Updating npm for you..."
+#	npm install npm@latest -g
+#	info "Updating Node.js for you..."
+#else
+#	info "Installing Node.js for you..."
+#	# get node and npm latest
+#	curl "https://nodejs.org/dist/latest/node-${VERSION:-$(wget -qO- https://nodejs.org/dist/latest/ | sed -nE 's|.*>node-(.*)\.pkg</a>.*|\1|p')}.pkg" > "$HOME/Downloads/node-latest.pkg" && sudo installer -store -pkg "$HOME/Downloads/node-latest.pkg" -target "/"
+#fi
+
+
+## Configure default directory
+#NPM_GLOBAL_DIR="${HOME}/.npm-global"
+#info "Setting npm default directory to $NPM_GLOBAL_DIR..."
+#
+#if [[ ! -d "$NPM_GLOBAL_DIR" ]]; then
+#	mkdir -p "$NPM_GLOBAL_DIR"
+#fi
+#
+## Configure npm to use the new directory path:
+#npm config set prefix "$NPM_GLOBAL_DIR";
+
+
+
+# install latest node long term support relese
+info "Installing latest node.js LTS version"
+nvm install --lts
+
+
