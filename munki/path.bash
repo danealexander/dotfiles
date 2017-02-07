@@ -2,5 +2,5 @@
 
 
 if [ -e /usr/local/munki ]; then
-	PATH=$PATH:/usr/local/munki;
+	export PATH=$PATH:/usr/local/munki;
 fi
