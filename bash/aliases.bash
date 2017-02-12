@@ -100,3 +100,7 @@ alias wget-page='wget --recursive --no-clobber --page-requisites --html-extensio
 # AutoPKG alias
 alias ap='autopkg'
 
+# WordPress search and replace db fix
+alias srdb="php $HOME/dotfiles/bin/srdb.cli.php"
+
+
