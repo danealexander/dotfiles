@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Find Missing alt attributes on images
+#
+# Recursively loops through html files in current directory or specified folder and prints
+# whether or not they have images with missing alt attributes
+# Prints out img element if attribure is missing
+# If no missing attributes found, prints green filename
+
+
+# This is basically what we're doing
+#find . -type f -name "*.html" -exec grep '<img.*>' {} \; -exec echo {} \; | grep -H '<img.*>' | grep -v 'alt'
+
+
+# Use folder path as argument
+if [[ -d $1 ]] || [[ -f $1 ]]; then
+	echo "Testing $1"
+	dir=$1
+else 
+	echo "Testing ./"
+	dir=.
+fi
+
+
+for f in $(find $dir -type f -name "*.html")
+do
+
+	
+	if [[ $(grep '<img.*' $f | grep -v 'alt') ]]; then
+		echo "\033[31m$f\033[39m"
+		grep '<img.*' $f | grep -v 'alt'
+	else
+		echo "\033[32m$f\033[39m"
+	fi
+done
