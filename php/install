@@ -9,6 +9,10 @@
 DEFAULT_PKGS=(
 )
 
+# shortcut to this dotfiles path is $DOTS
+export DOTS=$HOME/dotfiles
+
+
 
 # Interaction functions
 info () {
@@ -40,7 +44,7 @@ then
 else
 	info "Installing Composer for you..."
 
-	if source composer.install #> /tmp/dotfiles-dot 2>&1
+	if source "$DOTS/php/composer.install" #> /tmp/dotfiles-dot 2>&1
 	then
 		success "Composer installed"
 	else
