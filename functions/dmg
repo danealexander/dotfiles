@@ -1,0 +1,19 @@
+# Create a dmg file from folder
+# $1	folder name
+# $2	dmg name (optional)
+dmg() {
+	if [ -z "$1" ]; then
+	    echo "Need the folder to create a dmg from!"
+		 echo "Optionally: name of dmg file"
+	fi
+	
+	src=${1%/}							#strip trailing slash
+	dmgname="$2"
+	
+	# if no dmg name supplied, use foldername insted
+	if [ -z "$dmgname" ]; then
+		dmgname="${src##*/}"	#get basename
+	fi
+	
+	hdiutil create  -srcfolder "$src" -ov -volname "$dmgname" "$src".dmg
+}
