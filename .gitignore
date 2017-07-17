@@ -1,2 +1,3 @@
-# Ignore local folder
-local/
+# Ignore everything inside local folder, but keep directory
+local/*
+!.gitkeep
