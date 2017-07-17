@@ -5,17 +5,19 @@
 # This installs and updates some of the common dependencies needed (or at least desired)
 # using Homebrew and Caskroom
 
+# @todo create a skip list for casks that fail (because maybe they were already installed). Don't want to keep trying to install them
+
 # Default Homebrew packages to install
 # Add new ones here
-DEFAULT_PKGS=(			\
-	bash 					\
-	bash-completion	\
-	colordiff 			\
-	ffmpeg 				\
-	git 					\
-	mysql 				\
-	rsync 				\
-	wget 					\
+DEFAULT_PKGS=(			
+	bash 				
+	bash-completion		
+	colordiff 			
+	ffmpeg 				
+	git 				
+	mysql 				 
+	rsync 				
+	wget				
 	zsh 
 )
 
@@ -30,7 +32,7 @@ DEFAULT_CASKS=(
 	dropbox	
 	firefox 
 	google-chrome 
-	google-drive 
+	#google-drive 
 	handbrake 
 	imageoptim 
 	quicksilver 
@@ -42,7 +44,7 @@ DEFAULT_CASKS=(
 	sketch 
 	sqlitebrowser 
 	textmate 
-	textwrangler 
+	#textwrangler 
 	transmit 
 	virtualbox 
 	virtualbox-extension-pack 
@@ -71,6 +73,11 @@ fail () {
 }
 
 
+contains() {
+	[[ $1 =~ (^|[[:space:]])"$2"($|[[:space:]]) ]] && return 0  || return 1
+}
+
+
 # Check for Homebrew
 # Install or update
 if test $(which brew)
@@ -82,31 +89,31 @@ else
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-
+# Dupes is now depricated
 # Tap dupes
-if  ! $(brew tap | grep -lq "homebrew/dupes")
-then
-	info "Tapping homebrew/dupes"
-	brew tap homebrew/dupes
-fi
+#if  ! $(brew tap | grep -lq "homebrew/dupes")
+#then
+#	info "Tapping homebrew/dupes"
+#	brew tap homebrew/dupes
+#fi
 
 
 # Check to make sure we have all default brew packages
 installed_pkgs=$(brew list)
-
 install_list=()
 
 
 # build list of packages to install
 for i in "${DEFAULT_PKGS[@]}"
 do
-	if test $(echo "$installed_pkgs" | fgrep -lq "$i")	
+	contains "$installed_pkgs" $i
+	r=$?
+	if [[ "$r" -eq 1 ]] 
 	then 
-		echo $?
-		# echo "$i added to install list"
-		install_list+=("$i");
-		#else
-		# echo "$i already installed"
+		#echo "$i added to install list"
+		install_list+=("$i")
+	else
+		echo "$i already installed"
 	fi
 done
 
@@ -129,19 +136,20 @@ fi
 
 # Check to make sure we have all default casks
 installed_casks=$(brew cask list)
-
 install_cask_list=()
 
 
 # build list of casks to install
 for i in "${DEFAULT_CASKS[@]}"
 do
-	if test $(echo "$installed_casks" | fgrep -lq "$i")	
+	contains "$installed_casks" $i
+	r=$?
+	if [[ "$r" -eq 1 ]]	
 	then 
-		# echo "$i added to install list"
+		#echo "$i added to install list"
 		install_cask_list+=("$i");
-		#else
-		# echo "$i already installed"
+	else
+		echo "$i already installed"
 	fi
 done
 
