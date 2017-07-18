@@ -27,6 +27,7 @@ DEFAULT_CASKS=(
 	1password 					
 	acorn 						
 	atom 							
+	bbedit
 	brackets 					
 	chrome-devtools			
 	dropbox	
@@ -44,7 +45,6 @@ DEFAULT_CASKS=(
 	sketch 
 	sqlitebrowser 
 	textmate 
-	#textwrangler 
 	transmit 
 	virtualbox 
 	virtualbox-extension-pack 
