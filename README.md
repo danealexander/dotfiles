@@ -55,6 +55,7 @@ get added to the git repo. Great for private files or local configurations.
 * Add preferences for TextWrangler
 * Auto Install solarized
 * Create install script for each topic
+* Create script for optional cask installs
 
 ## thanks
 
