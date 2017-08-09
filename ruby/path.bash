@@ -1,7 +1,10 @@
 ### Ruby
 
 # rvm setup
+# Load RVM into a shell session *as a function*
 if [ -e $HOME/.rvm/scripts/rvm ]; then 
   source $HOME/.rvm/scripts/rvm;
-  #PATH=$PATH:$HOME/.rvm/bin;
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
