@@ -91,7 +91,7 @@ else
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Dupes is now depricated
+# Dupes is now deprecated
 # Tap dupes
 #if  ! $(brew tap | grep -lq "homebrew/dupes")
 #then
