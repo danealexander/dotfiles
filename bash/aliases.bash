@@ -39,10 +39,12 @@ alias lsp='ls -lA@e'
 # List only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
+# Mounting
+alias dmgmount='hdiutil attach -noverify -noautofsck -owners on'
+
 # ejecting
 alias unmount="diskutil unmount"
 alias eject="diskutil eject"
-
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -103,4 +105,4 @@ alias ap='autopkg'
 # WordPress search and replace db fix
 alias srdb="php $HOME/dotfiles/bin/srdb.cli.php"
 
-
+alias qna="/Library/BESAgent/BESAgent.app/Contents/MacOS/QnA"
