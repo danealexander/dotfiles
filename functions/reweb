@@ -1,0 +1,10 @@
+# restarts apache
+
+function reweb() {
+# Colors
+	local green=$(tput setaf 64);
+	local NC=$(tput sgr 0)
+
+	sudo apachectl graceful
+	echo "${green}Apache restarted 🙊${NC}"
+}
