@@ -1,4 +1,4 @@
-export PATH="/usr/local/sbin:/usr/local/bin:${PATH}:${HOME}/bin:${HOME}/slisbin:${DOTS}/bin";
+export PATH="/usr/local/bin:/usr/local/sbin:${PATH}:${HOME}/bin:${HOME}/slisbin:${DOTS}/bin";
 # Basic PATH
 #export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin";
 
