@@ -1,0 +1,16 @@
+# @see http://brettterpstra.com/2018/11/07/shell-tricks-instant-wildcard-directory-search/
+# Convert simplified wildcard pattern to regex and grep a file listing using
+# Silver Searcher (`brew install the_silver_searcher`)
+
+# substitutes basic “*” and “?” for regular expressions.
+# “.”  search for a literal period
+# Spaces are converted to “.*” searches
+# limit to filetype by adding extension
+# $ lsgrep d?rty
+# $ lsgrep d*rty .md
+
+lsgrep ()
+{
+    NEEDLE="$(echo $@|sed -E 's/\.([a-z0-9]+)$/\\.\1/'|sed -E 's/\?/./'| sed -E 's/[ *]/.*?/g')";
+    ag --depth 3 -S -g "$NEEDLE" 2> /dev/null
+}

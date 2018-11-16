@@ -9,13 +9,17 @@
 
 # Default Homebrew packages to install
 # Add new ones here
-DEFAULT_PKGS=(			
+DEFAULT_PKGS=(
+  ag
 	bash 				
-	bash-completion		
-	colordiff 			
+	bash-completion
+	bat
+	colordiff
+	fd		
 	ffmpeg 				
 	git 				
-	mysql 				 
+	mysql
+	ncdu 				 
 	rsync 				
 	wget
 	homebrew/php/wp-cli
