@@ -6,7 +6,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
 
 # Shortcuts
 alias dl="cd ~/Downloads"
@@ -20,15 +19,13 @@ alias gd="cd ~/Google\ Drive"
 alias sites="cd ~/Sites"
 
 # shortcuts to local dev sites
-alias 244="cd ~/Sites/comm244.dev"
-alias 328="cd ~/Sites/comm328.dev"
-alias lwp="cd ~/Sites/lwp.dev"
-alias rt="cd ~/Sites/redtomatowp.dev"
+alias 244="cd ~/Sites/comm244.test"
+alias 328="cd ~/Sites/comm328.test"
+alias lwp="cd ~/Sites/lwp.test"
 
 alias g="git"
 alias h="history"
-alias j="jobs"
-
+alias p="peep"
 
 #ls
 alias ls='ls -G'
@@ -71,7 +68,7 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 
 # Empty the Trash on all mounted volumes and the main HDD
 # Also, clear Apple’s System Logs to improve shell startup speed
-alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
+#alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"
@@ -105,4 +102,5 @@ alias ap='autopkg'
 # WordPress search and replace db fix
 alias srdb="php $HOME/dotfiles/bin/srdb.cli.php"
 
+# BigFix
 alias qna="/Library/BESAgent/BESAgent.app/Contents/MacOS/QnA"
