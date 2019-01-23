@@ -70,6 +70,26 @@ alias lscleanup="/System/Library/Frameworks/CoreServices.framework/Frameworks/La
 # Also, clear Apple’s System Logs to improve shell startup speed
 #alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash; sudo rm -rfv /private/var/log/asl/*.asl"
 
+# top
+alias cpu='top -o cpu'
+alias mem='top -o rsize' # memory
+
+# copy the working directory path
+alias cpwd='pwd|tr -d "\n"|pbcopy'
+
+# Toggle wifi (add on or off after command)
+alias wifi="networksetup -setairportpower en0"
+
+# Use ack to locate TOD* and FIXM* lines in current folder tree
+alias todos='ack --nobreak --nocolor "(TODO|FIXME):"|sed -E "s/(.*:[[:digit:]]+):.*((TODO|FIXME):.*)/\2 :>> \1/"|grep -E --color=always ":>>.*:\d+"'
+
+# Quick Look a file from Terminal
+alias ql="qlmanage -px &>/dev/null"
+
+# Search running processes for a pattern
+alias ps?="ps ax|grep -v grep|grep -iE"
+alias psgrep='psgrep -saien'
+
 # Disable Spotlight
 alias spotoff="sudo mdutil -a -i off"
 # Enable Spotlight
