@@ -10,20 +10,25 @@
 # Default Homebrew packages to install
 # Add new ones here
 DEFAULT_PKGS=(
-  ag
 	bash 				
 	bash-completion
 	bat
+	brew-cask-completion
 	colordiff
+	coreutils
+	diffutils
+	duti
 	fd		
-	ffmpeg 				
-	git 				
+	ffmpeg
+	gawk 				
+	git			
 	mysql
 	ncdu 				 
-	rsync 				
+	rsync
+	the_silver_searcher			
 	wget
-	homebrew/php/wp-cli
-	wpcli-completion		
+	wp-cli
+	wp-cli-completion		
 	zsh 
 )
 
@@ -39,7 +44,6 @@ DEFAULT_CASKS=(
 	dropbox	
 	firefox 
 	google-chrome 
-	#google-drive 
 	handbrake 
 	imageoptim 
 	quicksilver 
@@ -49,7 +53,7 @@ DEFAULT_CASKS=(
 	qlmarkdown 
 	sequel-pro 
 	sketch 
-	sqlitebrowser 
+	#sqlitebrowser 
 	textmate 
 	transmit 
 	virtualbox 
@@ -95,14 +99,6 @@ else
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# Dupes is now deprecated
-# Tap dupes
-#if  ! $(brew tap | grep -lq "homebrew/dupes")
-#then
-#	info "Tapping homebrew/dupes"
-#	brew tap homebrew/dupes
-#fi
-
 
 # Check to make sure we have all default brew packages
 installed_pkgs=$(brew list)
@@ -134,40 +130,72 @@ fi
 	
 
 # Install caskroom
-if  ! $(brew tap | grep -lq "caskroom/cask")
-then
-	info "Tapping Caskroom"
-	brew tap caskroom/cask
-fi
 
-# Check to make sure we have all default casks
-installed_casks=$(brew cask list)
-install_cask_list=()
+install_caskroom() {
+	local overwrite=false
+	local name="Caskroom"
 
-
-# build list of casks to install
-for i in "${DEFAULT_CASKS[@]}"
-do
-	contains "$installed_casks" $i
-	r=$?
-	if [[ "$r" -eq 1 ]]	
-	then 
-		#echo "$i added to install list"
-		install_cask_list+=("$i");
-	else
-		echo "$i already installed"
+	if  ! $(brew tap | grep -lq "homebrew/cask")
+	then
+		info "Tapping Caskroom"
+		brew tap homebrew/cask
 	fi
-done
-
-# Install caskroom packages
-if [ ${#install_cask_list[@]} -eq 0 ]
-then 
-	success "All default Caskroom packages already installed"
-else
-	info "Installing the following Caskroom packages for you: ${install_cask_list[@]}"
-	brew cask install ${install_cask_list[@]}
-fi
 
 
+	echo ""
+	user "Install ${name}?: \n\
+	[y]es, [n]o?"
+	read -n 1 action
+
+	case "$action" in
+		y | Y )
+			install=true;;
+		n | N )
+			install=false;;
+		* )
+		;;
+	esac
+	
+  
+	if [ "$install" == "true" ]
+	then
+		# Check to make sure we have all default casks
+		installed_casks=$(brew cask list)
+		install_cask_list=()
+
+
+		# build list of casks to install
+		for i in "${DEFAULT_CASKS[@]}"
+		do
+			contains "$installed_casks" $i
+			r=$?
+			if [[ "$r" -eq 1 ]]	
+			then 
+				#echo "$i added to install list"
+				install_cask_list+=("$i");
+			else
+				echo "$i already installed"
+			fi
+		done
+	
+		
+		# Install caskroom packages
+		if [ ${#install_cask_list[@]} -eq 0 ]
+		then 
+			success "All default Caskroom packages already installed"
+		else
+			info "Installing the following Caskroom packages for you: ${install_cask_list[@]}"
+			brew cask install ${install_cask_list[@]}
+		fi
+		
+	else
+      success "skipped ${name}"
+	fi
+}
+
+
+
+
+install_caskroom
 
 exit 0

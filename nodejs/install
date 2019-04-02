@@ -13,7 +13,7 @@
 # Default global modules to install
 # Add new ones here
 DEFAULT_MODULES=(		\
-	gulp 					\
+	gulp 				\
 	gulp-util			\
 	grunt-init 			\
 	grun-cli 			\
@@ -43,7 +43,7 @@ fail () {
 
 # Get an install nvm
 info "Installing/Updating nvm for you..."
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 info "Exporting nvm config and loading"
 export NVM_DIR="/Users/grovesd/.nvm"

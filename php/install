@@ -50,7 +50,6 @@ else
 	else
 		fail "error installing Composer"
 	fi
-	
 fi
 
 
