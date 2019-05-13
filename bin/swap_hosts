@@ -1,0 +1,90 @@
+#!/bin/sh
+
+# Swap hosts files from ad blocker to standard
+
+# Colors
+BRed=$(tput setaf 1)
+BGrn=$(tput setaf 2)
+NC=$(tput sgr 0)
+
+
+# Path to hosts repo
+if [[ -n "$1" ]]; then
+	# $HOSTS_REPO passed as parameter
+	HOSTS_REPO="$1"
+elif [[ -z "$HOSTS_REPO" ]]; then
+	# $HOSTS_REPO not set, use default
+	HOSTS_REPO="$HOME/hosts"
+	printf "${BGrn}Using default hosts repo location: ${HOSTS_REPO}\n"
+fi
+
+
+# Make sure host repo is directory
+if [[ ! -d "$HOSTS_REPO" ]]; then
+	printf "${BRed}hosts repo does not exist: ${HOSTS_REPO}\n"
+	exit 1
+fi
+
+
+# Must run as root, pass $HOSTS_REPO as parameter
+if [ -z "$SUDO_COMMAND" ]; then
+	printf "${BGrn}Re-running script as root${NC}\n"
+	sudo $0 "$HOSTS_REPO"
+	exit 0		
+fi
+
+
+HOSTS_CUSTOM="${HOSTS_REPO}/hosts"
+#HOSTS_STD="/etc/hosts_std"
+HOSTS_PROD="/etc/hosts"
+
+
+# Prepare std hosts file
+create_std_hosts() {
+	# Add boilerplate hosts. Will clobber old hosts
+	cat <<EOT > "$HOSTS_PROD"
+# Standard hosts file w/o ad blocking
+
+127.0.0.1 localhost
+127.0.0.1 localhost.localdomain
+127.0.0.1 local
+255.255.255.255 broadcasthost
+::1 localhost
+fe80::1%lo0 localhost
+0.0.0.0 0.0.0.0
+
+EOT
+
+	# Add myhosts to std hosts file
+	cat "${HOSTS_REPO}/myhosts" >> "$HOSTS_PROD"
+}
+
+
+flushcache() {
+	dscacheutil -flushcache;sudo killall -HUP mDNSResponder
+}
+
+current_size=$(stat -f%z "$HOSTS_PROD")
+if [ $current_size -le 1000 ]; then
+	# Currently using standard hosts
+	printf "${BGrn}Will install custom hosts file\n"
+	
+	# Create a new custom hosts file if older than 30 days
+	if [[ $(find "$HOSTS_CUSTOM" -mtime +30 -print) ]]; then
+		printf "${BGrn}Hosts file is outdated, will generate new one\n"
+		pushd "$HOSTS_REPO"
+		# updateHostsFile.py will take over from here to complete process and flush cache
+		python3 updateHostsFile.py
+		popd
+	else
+		cp "$HOSTS_CUSTOM" "$HOSTS_PROD"
+	fi
+		
+else
+	# Using custom hosts
+	echo "${BGrn}Will install standard hosts file${NC}"
+	create_std_hosts
+	flushcache
+fi
+
+exit 0

@@ -1,0 +1,41 @@
+#!/bin/sh
+#
+# validate
+#
+# Validate folder
+
+
+dir=$1
+
+if [[ ! -f "~/vnu.jar" ]]; then
+	echo "Missing ~/vnu.jar"
+fi
+
+if [[ -n "$dir" ]]; then
+	cd "$dir"
+else
+	echo "Missing argument for folder to validate"
+	exit 1
+fi
+
+out=validation-report.md
+echo $(pwd)/$out
+
+for file in $(find . -type f -name '*.html'); do 
+# @todo Use $(basename $a) to get filename
+#		Loop throuh array of exclude files
+#		htmltest.html
+
+	filename=$(basename "$file")
+
+	if [ $filename = htmltest.html ] || 
+		[ $filename = html-test.html ]; then
+		continue
+	fi
+	
+
+	echo "### $file" >> $out; 
+	java -jar ~/vnu.jar --skip-non-html  --errors-only --format text $file 2>> $out
+	echo "" >> $out;
+	echo "" >> $out;
+done

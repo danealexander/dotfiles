@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# slurpurl
+#
+# Use wget to pull a group of files
+
+# @todo Add file argument option for list of urls (use that instead of local comm244 slurp)
+url=$1
+saveDir=$2
+
+if [[ ! -n "$url" ]]; then
+   echo "Missing url for website"
+	 exit 1
+fi
+
+
+if [[ -n "$saveDir" ]]; then
+   mkdir -p "$saveDir" && cd $_
+else
+    echo "Missing argument for folder to save student files to"
+	 exit 1
+fi
+
+touch "$(date +'%a %m-%d-%y %I.%M %p')"
+
+wget \
+--force-directories \
+--default-page=index.html \
+--no-cache \
+--recursive \
+--no-clobber \
+--page-requisites \
+--html-extension \
+--convert-links \
+--domains simmons.edu \
+--exclude-directories=~grovesd \
+--no-parent \
+--no-host-directories \
+  "$url"

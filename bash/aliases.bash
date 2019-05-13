@@ -124,3 +124,6 @@ alias srdb="php $HOME/dotfiles/bin/srdb.cli.php"
 
 # BigFix
 alias qna="/Library/BESAgent/BESAgent.app/Contents/MacOS/QnA"
+
+# Python
+alias py3="/usr/local/bin/python3"
