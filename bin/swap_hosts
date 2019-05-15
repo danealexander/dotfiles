@@ -2,10 +2,30 @@
 
 # Swap hosts files from ad blocker to standard
 
-# Colors
-BRed=$(tput setaf 1)
-BGrn=$(tput setaf 2)
-NC=$(tput sgr 0)
+# Interactive messages and colors
+export TXT_NC=$(tput sgr 0)
+export TXT_bold=$(tput bold)
+export TXT_blue=$(tput setaf 33)
+export TXT_green=$(tput setaf 64)
+export TXT_orange=$(tput setaf 166)
+export TXT_red=$(tput setaf 124)
+
+
+# Interaction functions
+msg_info () {
+  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1\n"
+}
+
+msg_success () {
+  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1\n"
+}
+
+msg_fail () {
+  printf "\r  ${TXT_bold}${rTXT_ed}[ FAIL ]${TXT_NC} $1\n"
+  echo ''
+  exit
+}
+
 
 
 # Path to hosts repo
@@ -15,27 +35,26 @@ if [[ -n "$1" ]]; then
 elif [[ -z "$HOSTS_REPO" ]]; then
 	# $HOSTS_REPO not set, use default
 	HOSTS_REPO="$HOME/hosts"
-	printf "${BGrn}Using default hosts repo location: ${HOSTS_REPO}\n"
+	info "Using default hosts repo location: ${HOSTS_REPO}"
 fi
 
 
 # Make sure host repo is directory
 if [[ ! -d "$HOSTS_REPO" ]]; then
-	printf "${BRed}hosts repo does not exist: ${HOSTS_REPO}\n"
+	msg_error "Hosts repo does not exist: ${HOSTS_REPO}"
 	exit 1
 fi
 
 
 # Must run as root, pass $HOSTS_REPO as parameter
 if [ -z "$SUDO_COMMAND" ]; then
-	printf "${BGrn}Re-running script as root${NC}\n"
+	msg_info "Re-running script as root"
 	sudo $0 "$HOSTS_REPO"
 	exit 0		
 fi
 
 
 HOSTS_CUSTOM="${HOSTS_REPO}/hosts"
-#HOSTS_STD="/etc/hosts_std"
 HOSTS_PROD="/etc/hosts"
 
 
@@ -57,6 +76,9 @@ EOT
 
 	# Add myhosts to std hosts file
 	cat "${HOSTS_REPO}/myhosts" >> "$HOSTS_PROD"
+	if [ $? != 0 ]; then
+		msg_fail "Unable to create standard hosts file in $HOSTS_PROD"
+	fi
 }
 
 
@@ -67,24 +89,31 @@ flushcache() {
 current_size=$(stat -f%z "$HOSTS_PROD")
 if [ $current_size -le 1000 ]; then
 	# Currently using standard hosts
-	printf "${BGrn}Will install custom hosts file\n"
+	# msg_info "Installing custom hosts file"
 	
 	# Create a new custom hosts file if older than 30 days
 	if [[ $(find "$HOSTS_CUSTOM" -mtime +30 -print) ]]; then
-		printf "${BGrn}Hosts file is outdated, will generate new one\n"
+		msg_info "Hosts file is outdated, generating new one"
 		pushd "$HOSTS_REPO"
 		# updateHostsFile.py will take over from here to complete process and flush cache
 		python3 updateHostsFile.py
 		popd
 	else
 		cp "$HOSTS_CUSTOM" "$HOSTS_PROD"
+		if [ $? != 0 ]; then
+			msg_fail "Something died"
+		fi
 	fi
+	
+	msg_success "Custom hosts file installed"
 		
 else
 	# Using custom hosts
-	echo "${BGrn}Will install standard hosts file${NC}"
+	# msg_info "Installing standard hosts file"
 	create_std_hosts
 	flushcache
+	msg_success "Standard hosts file installed"
 fi
+
 
 exit 0
