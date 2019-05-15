@@ -9,16 +9,16 @@ url=$1
 saveDir=$2
 
 if [[ ! -n "$url" ]]; then
-   echo "Missing url for website"
-	 exit 1
+	echo "Missing url for website"
+	exit 1
 fi
 
 
 if [[ -n "$saveDir" ]]; then
-   mkdir -p "$saveDir" && cd $_
+	mkdir -p "$saveDir" && cd $_
 else
-    echo "Missing argument for folder to save student files to"
-	 exit 1
+	echo "Missing argument for folder to save student files to"
+	exit 1
 fi
 
 touch "$(date +'%a %m-%d-%y %I.%M %p')"
@@ -36,4 +36,4 @@ wget \
 --exclude-directories=~grovesd \
 --no-parent \
 --no-host-directories \
-  "$url"
+	"$url"
