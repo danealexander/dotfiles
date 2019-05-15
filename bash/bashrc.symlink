@@ -5,38 +5,26 @@
 # shortcut to this dotfiles path is $DOTS
 export DOTS=$HOME/dotfiles
 
+
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
 # you'll have access to them in your scripts.
-if [[ -a ~/.localrc ]]
+if [[ -e ~/.localrc ]]
 then
   source ~/.localrc
 fi
 
-# get an array of all of our bash files
-config_files=($(find $DOTS -name '*.bash' -print))
 
-path_file=path.bash
-completion_file=completion.bash
+# Get an array of all of our .bash files
+# Files organized by name and grouped in folders of language/program
+# Ex: path.bash, completion.bash, config.bash, prompt.bash
+config_files=($(find $DOTS -maxdepth 2 -name '*.bash' -print))
 
 
-# load the path files
+# load the .bash files
 for file in "${config_files[@]}"
 do
-	if [ "${file/$path_file}" != "$file" ]
-	then
-		source $file
-	fi
-done
-
-
-# load everything but the path files and completion files
-for file in ${config_files[@]}
-do
-	if [ "${file/$path_file}" = "$file" ] && [ "${file/$completion_file}" = "$file" ]
-	then
-		source $file
-	fi
+	source "$file"
 done
 
 
@@ -47,15 +35,3 @@ do
 done
 
 
-# load the completion files
-for file in "${config_files[@]}"
-do
-	if [ "${file/$completion_file}" != "$file" ]
-	then
-		source $file
-	fi
-done
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
