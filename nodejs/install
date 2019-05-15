@@ -12,33 +12,11 @@
 
 # Default global modules to install
 # Add new ones here
-DEFAULT_MODULES=(		\
-	gulp 				\
-	gulp-util			\
-	grunt-init 			\
-	grun-cli 			\
-	bower 				
-)
-
-
-# Interaction functions
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
+#DEFAULT_MODULES=(		\
+#	gulp 							\
+#	gulp-util					\
+#	bower 				
+#)
 
 
 # Get an install nvm
@@ -46,13 +24,14 @@ info "Installing/Updating nvm for you..."
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 
 info "Exporting nvm config and loading"
-export NVM_DIR="/Users/grovesd/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
-
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 # install latest node long term support relese
-info "Installing latest node.js LTS version"
+info "Installing latest node.js LTS version and setting default"
 nvm install --lts
+nvm alias default lts/*
 
 
