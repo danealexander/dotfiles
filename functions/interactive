@@ -1,0 +1,48 @@
+# Create default functions for interactive messages using solarized colors
+
+export TXT_NC=$(tput sgr 0)
+export TXT_bold=$(tput bold)
+
+# Solarized colors, taken from http://git.io/solarized-colors.
+export TXT_black=$(tput setaf 0)
+export TXT_blue=$(tput setaf 33)
+export TXT_cyan=$(tput setaf 37)
+export TXT_green=$(tput setaf 64)
+export TXT_orange=$(tput setaf 166)
+export TXT_purple=$(tput setaf 125)
+export TXT_red=$(tput setaf 124)
+export TXT_violet=$(tput setaf 61)
+export TXT_white=$(tput setaf 15)
+export TXT_yellow=$(tput setaf 136)
+
+
+# Interaction functions
+msg_info () {
+  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1"
+}
+
+msg_user () {
+  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1"
+}
+
+msg_success () {
+  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1"
+}
+
+msg_error () {
+  printf "\r  ${TXT_bold}${TXT_red}[ ERROR ]${TXT_NC} $1"
+}
+
+msg_fail () {
+  printf "\r  ${TXT_bold}${rTXT_ed}[ FAIL ]${TXT_NC} $1"
+  echo ''
+  exit
+}
+
+
+# Make fuctions available for scripts
+export -f msg_info
+export -f msg_user
+export -f msg_success
+export -f msg_error
+export -f msg_fail
