@@ -1,0 +1,113 @@
+# List of optional/extra casks I might want to install (but not by default)
+
+# Optional Caskroom packages to install
+# List of optional/extra casks I might want to install (but not by default)
+OPTIONAL_CASKS=(
+	arduino
+	autodmg
+	deeper
+	diffmerge
+	docker
+	docker-toolbox
+	powershell
+	pacifist
+	packages
+	outset
+	mysqlworkbench
+	munki
+	mpeg-streamclip
+	minecraft
+	isolator
+	taskpaper
+	vagrant 
+)
+
+export TXT_NC=$(tput sgr 0)
+export TXT_bold=$(tput bold)
+export TXT_blue=$(tput setaf 33)
+export TXT_green=$(tput setaf 64)
+export TXT_orange=$(tput setaf 166)
+export TXT_red=$(tput setaf 124)
+
+
+# Interaction functions
+msg_info () {
+  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1\n"
+}
+
+msg_user () {
+  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1 "
+}
+
+msg_success () {
+  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1\n"
+}
+
+msg_fail () {
+  printf "\r  ${TXT_bold}${TXT_red}[ FAIL ]${TXT_NC} $1\n"
+  echo ''
+  exit
+}
+
+# Helper
+contains() {
+	[[ $1 =~ (^|[[:space:]])"$2"($|[[:space:]]) ]] && return 0  || return 1
+}
+
+
+install_pkg() {
+	local install=false
+	local name=$1
+
+	echo ""
+	msg_user "Install ${name}? [y]es, [n]o:"
+	read -n 1 action
+
+	case "$action" in
+		y | Y )
+			install=true;;
+		n | N )
+			install=false;;
+		* )
+		;;
+	esac
+
+	if [ "$install" == "true" ]
+	then
+		#msg_info "$pkg added to install list"
+		install_list+=("$pkg");
+	fi
+}
+
+
+
+# Begin install
+name="Optional Casks"
+
+# Get list of installed casks
+installed_casks=$(brew cask list)
+install_list=()
+
+
+# build list of casks to install
+for pkg in "${OPTIONAL_CASKS[@]}"
+do
+	contains "$installed_casks" $pkg
+	if [[ "$?" -eq 1 ]]	
+	then 
+		install_pkg $pkg
+	#else
+		#msg_info "$pkg already installed"
+	fi
+done
+
+
+# Install caskroom packages
+if [ ${#install_list[@]} -eq 0 ]
+then 
+	msg_success "No Optional Caskroom packages to install"
+else
+	msg_info "Installing the following Caskroom packages for you: ${install_list[@]}"
+	brew cask install ${install_list[@]}
+fi
+

@@ -34,18 +34,18 @@ DEFAULT_PKGS=(
 
 # Default Caskroom packages to install
 # Add new ones here
-DEFAULT_CASKS=(				
-	1password 					
-	acorn 						
-	atom 							
+DEFAULT_CASKS=(
+	#1password	# New version requires subscription
+	acorn
+	atom
 	bbedit
-	brackets 					
-	chrome-devtools			
+	brackets
 	dropbox	
 	firefox 
 	google-chrome 
 	handbrake 
 	imageoptim 
+	name-mangler
 	quicksilver 
 	qlcolorcode 
 	quicklook-csv 
@@ -53,98 +53,120 @@ DEFAULT_CASKS=(
 	qlmarkdown 
 	sequel-pro 
 	sketch 
+	superduper
 	#sqlitebrowser 
 	textmate 
 	transmit 
 	virtualbox 
-	virtualbox-extension-pack 
-	vagrant 
+	virtualbox-extension-pack
+	vlc
 )
 
 
+# Interaction functions
+export TXT_NC=$(tput sgr 0)
+export TXT_bold=$(tput bold)
+export TXT_blue=$(tput setaf 33)
+export TXT_green=$(tput setaf 64)
+export TXT_orange=$(tput setaf 166)
+export TXT_red=$(tput setaf 124)
+export TXT_yellow=$(tput setaf 136)
+
 
 # Interaction functions
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1"
+msg_info () {
+  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1\n"
 }
 
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
+msg_user () {
+  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1 "
 }
 
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
+msg_success () {
+  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1\n"
 }
 
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
+msg_warn () {
+  printf "\r  ${TXT_bold}${TXT_yellow}[ WARNING ]${TXT_NC} $1\n"
+}
+
+msg_error () {
+  printf "\r  ${TXT_bold}${TXT_red}[ ERROR ]${TXT_NC} $1\n"
+}
+
+msg_fail () {
+  printf "\r  ${TXT_bold}${TXT_red}[ FAIL ]${TXT_NC} $1\n"
   echo ''
   exit
 }
 
 
+# Helper
 contains() {
 	[[ $1 =~ (^|[[:space:]])"$2"($|[[:space:]]) ]] && return 0  || return 1
 }
 
 
-# Check for Homebrew
-# Install or update
-if test $(which brew)
-then
-	info "Updating Homebrew for you..."
-	brew update
-else
-	info "Installing Homebrew for you..."
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-fi
 
-
-# Check to make sure we have all default brew packages
-installed_pkgs=$(brew list)
-install_list=()
-
-
-# build list of packages to install
-for i in "${DEFAULT_PKGS[@]}"
-do
-	contains "$installed_pkgs" $i
-	r=$?
-	if [[ "$r" -eq 1 ]] 
-	then 
-		#echo "$i added to install list"
-		install_list+=("$i")
+# Install homebrew
+install_homebrew() {
+	# Install or update
+	if test $(which brew)
+	then
+		msg_info "Updating Homebrew for you..."
+		brew update
 	else
-		echo "$i already installed"
+		msg_info "Installing Homebrew for you..."
+		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	fi
-done
 
-# Install homebrew packages
-if [ ${#install_list[@]} -eq 0 ]
-then 
-	success "All default Homebrew packages already installed"
-else
-	info "Installing the following Homebrew packages for you: ${install_list[@]}"
-	brew install ${install_list[@]}
-fi
-	
+
+
+	# Check to make sure we have all default brew packages
+	installed_pkgs=$(brew list)
+	install_list=()
+
+
+	# build list of packages to install
+	for pkg in "${DEFAULT_PKGS[@]}"
+	do
+		contains "$installed_pkgs" $pkg
+		if [[ "$?" -eq 1 ]] 
+		then 
+			#msg_info "$pkg added to install list"
+			install_list+=("$pkg")
+		else
+			msg_info "$pkg already installed"
+		fi
+	done
+
+	# Install homebrew packages
+	if [ ${#install_list[@]} -eq 0 ]
+	then 
+		msg_success "All default Homebrew packages are already installed"
+	else
+		msg_info "Installing the following Homebrew packages for you: ${install_list[@]}"
+		brew install ${install_list[@]}
+	fi
+}
+
 
 # Install caskroom
-
 install_caskroom() {
-	local overwrite=false
+	local install=false
 	local name="Caskroom"
 
 	if  ! $(brew tap | grep -lq "homebrew/cask")
 	then
-		info "Tapping Caskroom"
+		msg_info "Tapping Caskroom"
 		brew tap homebrew/cask
 	fi
 
 
 	echo ""
-	user "Install ${name}?: \n\
-	[y]es, [n]o?"
+	msg_warn "This part installs a bunch of default apps from Homebrew Caskroom.\n \
+	      It probably won't work correctly if you've already installed some of the apps.\n"
+	msg_user "Install ${name}?: \n [y]es, [n]o?"
 	read -n 1 action
 
 	case "$action" in
@@ -165,16 +187,15 @@ install_caskroom() {
 
 
 		# build list of casks to install
-		for i in "${DEFAULT_CASKS[@]}"
+		for pkg in "${DEFAULT_CASKS[@]}"
 		do
-			contains "$installed_casks" $i
-			r=$?
-			if [[ "$r" -eq 1 ]]	
+			contains "$installed_casks" $pkg
+			if [[ "$?" -eq 1 ]]	
 			then 
-				#echo "$i added to install list"
-				install_cask_list+=("$i");
+				#msg_info "$pkg added to install list"
+				install_cask_list+=("$pkg");
 			else
-				echo "$i already installed"
+				msg_info "$pkg already installed"
 			fi
 		done
 	
@@ -182,20 +203,48 @@ install_caskroom() {
 		# Install caskroom packages
 		if [ ${#install_cask_list[@]} -eq 0 ]
 		then 
-			success "All default Caskroom packages already installed"
+			msg_success "All default Caskroom packages already installed"
 		else
-			info "Installing the following Caskroom packages for you: ${install_cask_list[@]}"
+			msg_info "Installing the following Caskroom packages for you: ${install_cask_list[@]}"
 			brew cask install ${install_cask_list[@]}
 		fi
 		
 	else
-      success "skipped ${name}"
+      msg_success "Skipped ${name}"
 	fi
 }
 
 
+install_optional_casks() {
+	local install=false
+	local name="Optional Casks"
+
+	echo ""
+	msg_user "Review ${name}?: \n\
+	[y]es, [n]o?"
+	read -n 1 action
+
+	case "$action" in
+		y | Y )
+			install=true;;
+		n | N )
+			install=false;;
+		* )
+		;;
+	esac
+
+	if [ "$install" == "true" ]
+	then
+		$DOTS/homebrew/install-optional-casks
+	else
+      msg_success "Skipped ${name}"
+	fi
+}
 
 
+install_homebrew
 install_caskroom
+install_optional_casks
+
 
 exit 0
