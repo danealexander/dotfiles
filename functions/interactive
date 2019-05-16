@@ -18,23 +18,27 @@ export TXT_yellow=$(tput setaf 136)
 
 # Interaction functions
 msg_info () {
-  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1"
+  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1\n"
 }
 
 msg_user () {
-  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1"
+  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1 "
 }
 
 msg_success () {
-  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1"
+  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1\n"
+}
+
+msg_warn () {
+  printf "\r  ${TXT_bold}${TXT_yellow}[ WARNING ]${TXT_NC} $1\n"
 }
 
 msg_error () {
-  printf "\r  ${TXT_bold}${TXT_red}[ ERROR ]${TXT_NC} $1"
+  printf "\r  ${TXT_bold}${TXT_red}[ ERROR ]${TXT_NC} $1\n"
 }
 
 msg_fail () {
-  printf "\r  ${TXT_bold}${rTXT_ed}[ FAIL ]${TXT_NC} $1"
+  printf "\r  ${TXT_bold}${TXT_red}[ FAIL ]${TXT_NC} $1\n"
   echo ''
   exit
 }
