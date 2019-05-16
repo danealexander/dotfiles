@@ -21,7 +21,7 @@ msg_success () {
 }
 
 msg_fail () {
-  printf "\r  ${TXT_bold}${rTXT_ed}[ FAIL ]${TXT_NC} $1\n"
+  printf "\r  ${TXT_bold}${TXT_red}[ FAIL ]${TXT_NC} $1\n"
   echo ''
   exit
 }
