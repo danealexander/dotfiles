@@ -1,7 +1,6 @@
-[user]
-	name = Dane Groves
-	email = danealexander@users.noreply.github.com
-
+# Local/private config goes in the include
+[include]
+	path = ~/.gitconfig.local
 
 [credential]
 	helper = osxkeychain
