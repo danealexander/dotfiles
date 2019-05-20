@@ -6,6 +6,7 @@
 # to make sure you're on the latest and greatest.
 export DOTS=$HOME/dotfiles
 
+source "$DOTS/functions/interactive"
 
 # Install homebrew packages
 $DOTS/homebrew/install 2>&1

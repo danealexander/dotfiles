@@ -3,51 +3,26 @@
 # bootstrap installs things.
 
 
-cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd)
+export DOTS=$HOME/dotfiles
 
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
 echo ''
 
-# Create default functions for interactive messages using solarized colors
-export TXT_NC=$(tput sgr 0)
-export TXT_bold=$(tput bold)
-export TXT_blue=$(tput setaf 33)
-export TXT_green=$(tput setaf 64)
-export TXT_orange=$(tput setaf 166)
-export TXT_red=$(tput setaf 124)
-
-# Interaction functions
-msg_info () {
-  printf "\r  ${TXT_bold}${TXT_blue}[ ... ]${TXT_NC} $1\n"
-}
-
-msg_user () {
-  printf "\r  ${TXT_bold}${TXT_orange}[ ? ]${TXT_NC} $1 "
-}
-
-msg_success () {
-  printf "\r  ${TXT_bold}${TXT_green}[ OK ]${TXT_NC} $1\n"
-}
-
-msg_fail () {
-  printf "\r  ${TXT_bold}${TXT_red}[ FAIL ]${TXT_NC} $1\n"
-  echo ''
-  exit
-}
+## Create default functions for interactive messages using solarized colors
+source "$DOTS/functions/interactive"
 
 
 # Create local folder for private files
-if [ ! -d  "$DOTFILES_ROOT/local/" ]; then
-	mkdir -p "$DOTFILES_ROOT/local/"
+if [ ! -d  "$DOTS/local/" ]; then
+	mkdir -p "$DOTS/local/"
 fi
 
 
 # Create basic gitconfig.symlink file if one doesn't already exits
 setup_gitconfig () {
-	GIT_LOCAL="$DOTFILES_ROOT/local/gitconfig.local.symlink"
+	GIT_LOCAL="$DOTS/local/gitconfig.local.symlink"
 	
   if ! [ -f "$GIT_LOCAL" ]
   then
@@ -157,7 +132,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink')
+  for src in $(find -H "$DOTS" -maxdepth 2 -name '*.symlink')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$src" "$dst"
@@ -188,7 +163,7 @@ install_osx_defaults() {
 	then
 		msg_info "Setting ${name}"
 		
-		if source $DOTFILES_ROOT/osx/set-defaults
+		if source $DOTS/osx/set-defaults
 		then
 			msg_success "${name} set"
 		else

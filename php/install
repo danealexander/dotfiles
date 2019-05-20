@@ -13,42 +13,25 @@ DEFAULT_PKGS=(
 export DOTS=$HOME/dotfiles
 
 
-
-# Interaction functions
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] $1"
-}
-
-user () {
-  printf "\r  [ \033[0;33m?\033[0m ] $1 "
-}
-
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
-}
-
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
-  echo ''
-  exit
-}
+## Create default functions for interactive messages using solarized colors
+source "$DOTS/functions/interactive"
 
 
 # Check for Composer (global)
 # Install or update
 if test $(which composer)
 then
-	info "Updating Composer for you..."
+	msg_info "Updating Composer for you..."
 	composer self-update
 	composer global update
 else
-	info "Installing Composer for you..."
+	msg_info "Installing Composer for you..."
 
 	if source "$DOTS/php/composer.install" #> /tmp/dotfiles-dot 2>&1
 	then
-		success "Composer installed"
+		msg_success "Composer installed"
 	else
-		fail "error installing Composer"
+		msg_fail "error installing Composer"
 	fi
 fi
 
@@ -76,9 +59,9 @@ done
 # Install Composer packages
 if [ ${#install_list[@]} -eq 0 ]
 then 
-	success "All default global Composer packages already installed"
+	msg_success "All default global Composer packages already installed"
 else
-	info "Installing the following Composer packages for you: ${install_list[@]}"
+	msg_info "Installing the following Composer packages for you: ${install_list[@]}"
 	brew install ${install_list[@]}
 fi
 
