@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Settings for VIM
+
+
+# Install vim color schemes
+if [[ ! -d "$HOME/.vim/colors" ]]; then
+	mkdir -p "$HOME/.vim/colors"
+fi
+
+cp -Ri "$HOME/dotfiles/vim/colors/" "$HOME/.vim/colors/"
+
+exit 0
