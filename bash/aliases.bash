@@ -36,6 +36,8 @@ alias lsp='ls -lA@e'
 # List only directories
 alias lsd="ls -lF | grep --color=never '^d'"
 
+alias tgz='targz'
+
 # Mounting
 alias dmgmount='hdiutil attach -noverify -noautofsck -owners on'
 
