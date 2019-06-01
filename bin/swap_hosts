@@ -35,7 +35,7 @@ if [[ -n "$1" ]]; then
 elif [[ -z "$HOSTS_REPO" ]]; then
 	# $HOSTS_REPO not set, use default
 	HOSTS_REPO="$HOME/hosts"
-	info "Using default hosts repo location: ${HOSTS_REPO}"
+	msg_info "Using default hosts repo location: ${HOSTS_REPO}"
 fi
 
 
