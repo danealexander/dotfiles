@@ -41,3 +41,5 @@ nvm install --lts
 nvm alias default lts/*
 
 
+# @TODO - install gulp
+# 
