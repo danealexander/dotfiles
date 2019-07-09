@@ -179,7 +179,7 @@ install_osx_defaults() {
 # Install dependencies (Homebrew, etc.)
 install_dependencies() {
 	msg_info "Installing dependencies from bin/dot"
-	if source bin/dot #> /tmp/dotfiles-dot 2>&1
+	if source $DOTS/bin/dot #> /tmp/dotfiles-dot 2>&1
 	then
 		msg_success "Dependencies installed"
 	else
