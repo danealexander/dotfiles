@@ -10,7 +10,7 @@
 # Default Homebrew packages to install
 # Add new ones here
 DEFAULT_PKGS=(
-	bash 				
+	bash 
 	bash-completion
 	bat
 	brew-cask-completion
@@ -18,17 +18,20 @@ DEFAULT_PKGS=(
 	coreutils
 	diffutils
 	duti
-	fd		
+	fd
 	ffmpeg
-	gawk 				
-	git			
+	fzf
+	gawk
+	git
+	moreutils
 	mysql
-	ncdu 				 
+	ncdu
+	nvie/tap/git-toolbelt
 	rsync
-	the_silver_searcher			
+	the_silver_searcher
 	wget
 	wp-cli
-	wp-cli-completion		
+	wp-cli-completion
 	zsh 
 )
 
@@ -127,6 +130,15 @@ install_homebrew() {
 	install_list=()
 
 
+	# Tap when necessary
+	if  ! $(brew tap | grep -lq "nvie/tap")
+	then
+		msg_info "Tapping nvie/tap"
+		brew tap nvie/tap
+		
+	fi
+
+
 	# build list of packages to install
 	for pkg in "${DEFAULT_PKGS[@]}"
 	do
@@ -149,6 +161,7 @@ install_homebrew() {
 		brew install ${install_list[@]}
 	fi
 }
+
 
 
 # Install caskroom
