@@ -3,7 +3,7 @@ set showcmd											" Show (partial) command in status line.
 set autowrite 									" Automatically save before commands like :next and :make
 set hidden 											" Hide buffers when they are abandoned
 set mouse=a 										" Enable mouse usage (all modes)
-
+set clipboard=unnamedplus
 
 "" General
 set number											" Show line numbers
@@ -29,7 +29,9 @@ set ruler												" Show row and column ruler information
 set encoding=utf-8							" Encoding
 
                     						
+set history=1000								" remember more commands and search history
 set undolevels=1000							" Number of undo levels
+set title												" change the terminal's title
 set backspace=indent,eol,start	" Backspace behaviour
  
 
@@ -53,3 +55,23 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
+inoremap jk <ESC>
+inoremap jj <ESC>
+
+"" Plugins
+" See https://nvie.com/posts/how-i-boosted-my-vim/
+" Use pathogen to easily modify the runtime path to include all
+" plugins under the ~/.vim/bundle directory
+call pathogen#helptags()
+execute pathogen#infect()
+"call pathogen#runtime_append_all_bundles()
+
+" change the mapleader from \ to ,
+let mapleader=","
+
+" Quickly edit/reload the vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+filetype plugin indent on
+autocmd filetype python set expandtab
