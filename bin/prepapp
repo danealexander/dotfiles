@@ -1,0 +1,13 @@
+# Prep application folder for packaging
+# $1    App folder location
+
+if [ -z "$1" ]; then
+        echo "Need the app to prep!"
+         exit 1
+fi
+
+app=${1%/}                                                      #strip trailing slash
+
+chown -R root:wheel "$app"
+xattr -cr "$app"
+
