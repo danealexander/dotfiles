@@ -29,6 +29,8 @@ alias p="peep"
 
 #ls
 alias ls='ls -G'
+# long list
+alias ll='ls -lG'
 # list with hidden files
 alias la='ls -lAF'
 # list with extended permissions
