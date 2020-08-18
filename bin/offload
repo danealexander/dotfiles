@@ -1,0 +1,40 @@
+#!/bin/sh
+
+# Offload deployment builds to storage
+# Datestampls and compresses projects
+
+store='/Users/grovesd/deployment'
+
+stamp=$(date "+%Y-%m-%d")
+f=${1%/}
+fs="${1%/}-${stamp}"
+fz="${f}-${stamp}.tgz"
+
+# Check to make sure directory in args exists
+if [ ! -d "./${f}" ]; then 
+	echo "Directory doesn't exist in pkgbuilds"
+	exit 1
+fi
+
+# compress it
+tar -czf "$fz" "$f"
+
+# Don't blow up exisiting files
+# @TODO add check to loop through file numbers
+if [ -e "${store}/${fz}" ]; then
+	i="1"
+	
+	while [ -e "${store}/${fs}.${i}.tgz" ]; do 
+		i=$[$i+1]
+	done
+	
+	fz_save="${fs}.${i}.tgz"
+else 
+	fz_save="$fz"
+fi
+
+mv "$fz" "$store/$fz_save"
+#rm -rf "$f"
+open "$store"
+
+exit 0
