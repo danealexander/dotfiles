@@ -9,6 +9,10 @@
 
 # Default Homebrew packages to install
 # Add new ones here
+
+# @TODO create loop to ask about installing each pkg
+# @TODO create questio to ask if you want to review each pkg?
+
 DEFAULT_PKGS=(
 	bash 
 	bash-completion
@@ -23,6 +27,7 @@ DEFAULT_PKGS=(
 	fzf
 	gawk
 	git
+	mas
 	moreutils
 	mysql
 	ncdu
@@ -42,7 +47,7 @@ DEFAULT_CASKS=(
 	acorn
 	atom
 	bbedit
-	brackets
+	#brackets	# No longer using
 	dropbox	
 	firefox 
 	google-chrome 
@@ -57,7 +62,7 @@ DEFAULT_CASKS=(
 	sequel-pro 
 	sketch 
 	superduper
-	#sqlitebrowser 
+	#sqlitebrowser # not available
 	textmate 
 	transmit 
 	virtualbox 
@@ -127,7 +132,7 @@ install_homebrew() {
 
 
 	# Check to make sure we have all default brew packages
-	installed_pkgs=$(brew list)
+	installed_pkgs=$(brew list --formula)
 	install_list=()
 
 
