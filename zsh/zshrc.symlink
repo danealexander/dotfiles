@@ -1,0 +1,33 @@
+# If not running interactively, don't do anything
+# Fixes remote scp @see http://unix.stackexchange.com/questions/18231/scp-fails-without-error
+[[ $- == *i* ]] || return
+
+# shortcut to this dotfiles path is $DOTS
+export DOTS=$HOME/dotfiles
+
+# Get an array of all of our .zsh files
+# Files organized by name and grouped in folders of language/program
+# Ex: path.zsh, completion.zsh, config.zsh, prompt.zsh
+config_files=($(find $DOTS -maxdepth 2 -name '*.zsh' -print))
+
+# load the .zsh files
+for file in "${config_files[@]}"
+do
+	source "$file"
+done
+
+
+# Stash your environment variables in ~/.localrc. This means they'll stay out
+# of your main dotfiles repository (which may be public, like this one), but
+# you'll have access to them in your scripts.
+if [[ -e ~/.localrc ]]
+then
+  source ~/.localrc
+fi
+
+
+## load functions
+#for func in $(ls $DOTS/functions/)
+#do
+#	source "$DOTS/functions/$func"
+#done
