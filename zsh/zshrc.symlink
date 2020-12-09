@@ -5,6 +5,13 @@
 # shortcut to this dotfiles path is $DOTS
 export DOTS=$HOME/dotfiles
 
+# Set some config variables
+# Make zsh save history
+HISTFILE=${ZDOTDIR:-$HOME}/.zsh_history
+HISTSIZE=20000    # lines remembered per session
+SAVEHIST=50000    # lines stored in history file
+
+
 # Get an array of all of our .zsh files
 # Files organized by name and grouped in folders of language/program
 # Ex: path.zsh, completion.zsh, config.zsh, prompt.zsh
