@@ -61,6 +61,8 @@ You may also stash your environment variables in ~/.localrc will will be sourced
 * Auto Install solarized
 * Create install script for each topic
 * Create script for optional cask installs
+* .vim folder needs to be added
+* Set up zsh
 
 
 ## thanks
