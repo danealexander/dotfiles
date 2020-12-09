@@ -34,6 +34,7 @@ set undolevels=1000							" Number of undo levels
 set title												" change the terminal's title
 set backspace=indent,eol,start	" Backspace behaviour
  
+set rtp+=/usr/local/opt/fzf     " Use fzf for fuzzy completions
 
 "" Theme
 syntax enable
