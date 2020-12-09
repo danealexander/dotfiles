@@ -44,7 +44,7 @@ msg_fail () {
 }
 
 
-# Make fuctions available for scripts
+# Make functions available for scripts
 export -f msg_info
 export -f msg_user
 export -f msg_success
