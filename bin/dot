@@ -9,10 +9,10 @@ export DOTS=$HOME/dotfiles
 source "$DOTS/functions/interactive"
 
 # Install homebrew packages
-$DOTS/homebrew/install 2>&1
+#$DOTS/homebrew/install 2>&1
 
 # Install node.js ecosystem
-$DOTS/nodejs/install
+#$DOTS/nodejs/install
 
 # PHP Composer
-$DOTS/php/install
+#DOTS/php/install

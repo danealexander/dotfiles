@@ -33,8 +33,16 @@ then
 fi
 
 
+# @TODO	Rework functions loading
+# 			Not optimized for zsh currently, and makes loading SLOW
+
 ## load functions
 #for func in $(ls $DOTS/functions/)
 #do
 #	source "$DOTS/functions/$func"
 #done
+
+# Temporarily source most used fuctions
+source "$DOTS/functions/e"
+source "$DOTS/functions/m"
+source "$DOTS/functions/o"
